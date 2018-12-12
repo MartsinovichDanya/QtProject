@@ -1,11 +1,11 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QHBoxLayout, QInputDialog
-from PyQt5.QtWidgets import QLCDNumber, QLabel, QLineEdit
+from PyQt5.QtWidgets import QLCDNumber, QLabel, QLineEdit, QMessageBox, QErrorMessage
 from PyQt5.QtGui import QPixmap
 from photomagicapp import Ui_MainWindow
 import shutil
 import os.path
-# from time import sleep
+from time import sleep
 
 
 class Picture(QWidget):
@@ -37,13 +37,15 @@ class MainWidget(Ui_MainWindow, QMainWindow):
 app = QApplication(sys.argv)
 ex = MainWidget()
 name, okBtnPressed = QInputDialog.getText(
-            ex, "Имя файла", "имя"
+            ex, "Имя файла", "Имя файла"
         )
 if not okBtnPressed:
     sys.exit()
 if os.path.exists(name):
     shutil.copy(name, 'img.jpg')
+    ex.show()
 else:
-    sys.exit()
-ex.show()
+    error_dialog = QErrorMessage()
+    error_dialog.showMessage('Файл не найден!!!')
+    error_dialog.setWindowTitle('Ошибка!')
 sys.exit(app.exec_())
