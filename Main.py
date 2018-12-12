@@ -5,6 +5,7 @@ from PyQt5.QtGui import QPixmap
 from photomagicapp import Ui_MainWindow
 import shutil
 import os.path
+from cbimg import white_black
 from time import sleep
 
 
@@ -29,9 +30,13 @@ class MainWidget(Ui_MainWindow, QMainWindow):
         super().__init__()
         self.setupUi(self)
         self.showButton.clicked.connect(self.show_pic)
+        self.BWButton.clicked.connect(self.mk_bw)
 
     def show_pic(self):
         self.pic = Picture()
+
+    def mk_bw(self):
+        white_black('img.jpg')
 
 
 app = QApplication(sys.argv)
