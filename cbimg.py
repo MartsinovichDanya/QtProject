@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 
 
-def white_black(name):
+def gray(name):
     im = np.asarray(Image.open(name))
     r = im[:, :, 0]
     g = im[:, :, 1]

@@ -77,7 +77,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Photo Magic App"))
         self.NegButton.setText(_translate("MainWindow", "Негатив"))
         self.GrayButton.setText(_translate("MainWindow", "Серое"))
         self.BWButton.setText(_translate("MainWindow", "Черно-белое"))
@@ -89,4 +89,3 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Сохранить изменения?"))
         self.label_2.setText(_translate("MainWindow", "Поворот"))
         self.StatusLabel.setText(_translate("MainWindow", "       Готово!"))
-

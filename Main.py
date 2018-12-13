@@ -5,8 +5,10 @@ from PyQt5.QtGui import QPixmap
 from photomagicapp import Ui_MainWindow
 import shutil
 import os.path
-from cbimg import white_black
-from time import sleep
+from cbimg import gray
+from negativ import neg
+from noise import noise
+from threeDAnagliph import makeanagliph
 
 
 class Picture(QWidget):
@@ -30,13 +32,33 @@ class MainWidget(Ui_MainWindow, QMainWindow):
         super().__init__()
         self.setupUi(self)
         self.showButton.clicked.connect(self.show_pic)
-        self.BWButton.clicked.connect(self.mk_bw)
+        self.GrayButton.clicked.connect(self.mk_gray)
+        self.NegButton.clicked.connect(self.mk_neg)
+        self.WNButton.clicked.connect(self.mk_noise)
+        self.ThreeDButton.clicked.connect(self.mk_threeD)
 
     def show_pic(self):
         self.pic = Picture()
 
-    def mk_bw(self):
-        white_black('img.jpg')
+    def mk_gray(self):
+        self.StatusLabel.hide()
+        gray('img.jpg')
+        self.StatusLabel.show()
+
+    def mk_neg(self):
+        self.StatusLabel.hide()
+        neg('img.jpg')
+        self.StatusLabel.show()
+
+    def mk_noise(self):
+        self.StatusLabel.hide()
+        noise('img.jpg')
+        self.StatusLabel.show()
+
+    def mk_threeD(self):
+        self.StatusLabel.hide()
+        makeanagliph('img.jpg')
+        self.StatusLabel.show()
 
 
 app = QApplication(sys.argv)
