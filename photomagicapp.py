@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(434, 481)
+        MainWindow.resize(434, 526)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -62,6 +62,11 @@ class Ui_MainWindow(object):
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(270, 80, 68, 22))
         self.label_2.setObjectName("label_2")
+        self.StatusLabel = QtWidgets.QLabel(self.centralwidget)
+        self.StatusLabel.setGeometry(QtCore.QRect(30, 410, 111, 51))
+        self.StatusLabel.setStyleSheet("background-color: rgb(0, 170, 0);\n"
+"")
+        self.StatusLabel.setObjectName("StatusLabel")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -72,7 +77,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MagicPhotoApp"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.NegButton.setText(_translate("MainWindow", "Негатив"))
         self.GrayButton.setText(_translate("MainWindow", "Серое"))
         self.BWButton.setText(_translate("MainWindow", "Черно-белое"))
@@ -83,4 +88,5 @@ class Ui_MainWindow(object):
         self.TurnRButton.setText(_translate("MainWindow", "вправо"))
         self.label.setText(_translate("MainWindow", "Сохранить изменения?"))
         self.label_2.setText(_translate("MainWindow", "Поворот"))
+        self.StatusLabel.setText(_translate("MainWindow", "       Готово!"))
 

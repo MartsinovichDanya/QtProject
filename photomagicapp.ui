@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>434</width>
-    <height>481</height>
+    <height>526</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -150,6 +150,23 @@
     </property>
     <property name="text">
      <string>Поворот</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StatusLabel">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>410</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 170, 0);
+</string>
+    </property>
+    <property name="text">
+     <string>       Готово!</string>
     </property>
    </widget>
   </widget>
