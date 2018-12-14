@@ -12,6 +12,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(434, 526)
+        MainWindow.setStyleSheet("background-color: rgb(85, 170, 255);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -35,6 +36,10 @@ class Ui_MainWindow(object):
         self.WNButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.WNButton.setObjectName("WNButton")
         self.verticalLayout.addWidget(self.WNButton)
+        self.BackButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.BackButton.setStyleSheet("background-color: rgb(255, 0, 0);")
+        self.BackButton.setObjectName("BackButton")
+        self.verticalLayout.addWidget(self.BackButton)
         self.SaveChangesDialog = QtWidgets.QDialogButtonBox(self.centralwidget)
         self.SaveChangesDialog.setGeometry(QtCore.QRect(210, 360, 166, 30))
         self.SaveChangesDialog.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
@@ -77,15 +82,17 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Photo Magic App"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Magic Photo App"))
         self.NegButton.setText(_translate("MainWindow", "Негатив"))
         self.GrayButton.setText(_translate("MainWindow", "Серое"))
         self.BWButton.setText(_translate("MainWindow", "Черно-белое"))
         self.ThreeDButton.setText(_translate("MainWindow", "3D"))
         self.WNButton.setText(_translate("MainWindow", "Белый шум"))
+        self.BackButton.setText(_translate("MainWindow", "Назад"))
         self.showButton.setText(_translate("MainWindow", "Показать"))
         self.TurnLButton.setText(_translate("MainWindow", "влево"))
         self.TurnRButton.setText(_translate("MainWindow", "вправо"))
         self.label.setText(_translate("MainWindow", "Сохранить изменения?"))
         self.label_2.setText(_translate("MainWindow", "Поворот"))
         self.StatusLabel.setText(_translate("MainWindow", "       Готово!"))
+

@@ -1,8 +1,9 @@
 from PIL import Image
 
 
-def makeanagliph(filename):
-    iml = Image.open(filename)
+def makeanagliph(im):
+    iml = Image.open(im.name)
+    im.backup = iml
     pix = iml.load()
     x, y = iml.size
     res = Image.new('RGB', (x, y), (0, 0, 0))
@@ -15,4 +16,8 @@ def makeanagliph(filename):
                 pixres[i, j] = r1, g, b
             else:
                 pixres[i, j] = 0, g, b
-    res.save('img.jpg')
+    res.save(im.name)
+
+
+def back(im):
+    im.backup.save(im.name)

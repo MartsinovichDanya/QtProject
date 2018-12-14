@@ -1,14 +1,22 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QHBoxLayout, QInputDialog
-from PyQt5.QtWidgets import QLCDNumber, QLabel, QLineEdit, QMessageBox, QErrorMessage
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
+from PyQt5.QtWidgets import QLabel, QErrorMessage, QHBoxLayout, QInputDialog
 from PyQt5.QtGui import QPixmap
 from photomagicapp import Ui_MainWindow
 import shutil
 import os.path
-from cbimg import gray
-from negativ import neg
-from noise import noise
-from threeDAnagliph import makeanagliph
+
+import grayimg
+import negativ
+import noise
+import threeDAnagliph
+import bwimg
+
+
+class Image:
+    def __init__(self):
+        self.last_op = ''
+        self.name = 'img.jpg'
 
 
 class Picture(QWidget):
@@ -19,7 +27,7 @@ class Picture(QWidget):
     def initUI(self):
         self.setWindowTitle('Просмотр')
         self.hbox = QHBoxLayout(self)
-        self.pixmap = QPixmap('img.jpg')
+        self.pixmap = QPixmap(im.name)
         self.lbl = QLabel(self)
         self.lbl.setPixmap(self.pixmap)
         self.hbox.addWidget(self.lbl)
@@ -36,29 +44,53 @@ class MainWidget(Ui_MainWindow, QMainWindow):
         self.NegButton.clicked.connect(self.mk_neg)
         self.WNButton.clicked.connect(self.mk_noise)
         self.ThreeDButton.clicked.connect(self.mk_threeD)
+        self.BWButton.clicked.connect(self.mk_bw)
+        self.BackButton.clicked.connect(self.back)
 
     def show_pic(self):
         self.pic = Picture()
 
     def mk_gray(self):
         self.StatusLabel.hide()
-        gray('img.jpg')
+        grayimg.gray(im)
         self.StatusLabel.show()
+        im.last_op = 'gray'
 
     def mk_neg(self):
         self.StatusLabel.hide()
-        neg('img.jpg')
+        negativ.neg(im)
         self.StatusLabel.show()
+        im.last_op = 'neg'
 
     def mk_noise(self):
         self.StatusLabel.hide()
-        noise('img.jpg')
+        noise.noise(im)
         self.StatusLabel.show()
+        im.last_op = 'noise'
 
     def mk_threeD(self):
         self.StatusLabel.hide()
-        makeanagliph('img.jpg')
+        threeDAnagliph.makeanagliph(im)
         self.StatusLabel.show()
+        im.last_op = '3d'
+
+    def mk_bw(self):
+        self.StatusLabel.hide()
+        bwimg.bw(im)
+        self.StatusLabel.show()
+        im.last_op = 'bw'
+
+    def back(self):
+        if im.last_op == 'gray':
+            grayimg.back(im)
+        elif im.last_op == 'neg':
+            negativ.back(im)
+        elif im.last_op == '3d':
+            threeDAnagliph.back(im)
+        elif im.last_op == 'bw':
+            bwimg.back(im)
+        elif im.last_op == 'noise':
+            noise.back(im)
 
 
 app = QApplication(sys.argv)
@@ -69,7 +101,8 @@ name, okBtnPressed = QInputDialog.getText(
 if not okBtnPressed:
     sys.exit()
 if os.path.exists(name):
-    shutil.copy(name, 'img.jpg')
+    im = Image()
+    shutil.copy(name, im.name)
     ex.show()
 else:
     error_dialog = QErrorMessage()

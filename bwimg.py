@@ -1,8 +1,8 @@
 from PIL import Image
-import random
+import numpy as np
 
 
-def noise(im):
+def bw(im):
     img = Image.open(im.name)
     im.backup = Image.open(im.name)
     pix = img.load()
@@ -10,9 +10,11 @@ def noise(im):
     for i in range(x):
         for j in range(y):
             r, g, b = pix[i, j]
-            rand = random.randint(-40, 40)
-            r, g, b = r + rand, g + rand, b + rand
-            pix[i, j] = r, g, b
+            factor = (r + g + b) // 3
+            if factor >= 128:
+                pix[i, j] = 255, 255, 255
+            else:
+                pix[i, j] = 0, 0, 0
     img.save(im.name)
 
 
