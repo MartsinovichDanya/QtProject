@@ -72,6 +72,10 @@ class Ui_MainWindow(object):
         self.StatusLabel.setStyleSheet("background-color: rgb(0, 170, 0);\n"
 "")
         self.StatusLabel.setObjectName("StatusLabel")
+        self.OpenFileButton = QtWidgets.QPushButton(self.centralwidget)
+        self.OpenFileButton.setGeometry(QtCore.QRect(200, 420, 181, 71))
+        self.OpenFileButton.setStyleSheet("background-color: rgb(255, 255, 127);")
+        self.OpenFileButton.setObjectName("OpenFileButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -95,4 +99,5 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Сохранить изменения?"))
         self.label_2.setText(_translate("MainWindow", "Поворот"))
         self.StatusLabel.setText(_translate("MainWindow", "       Готово!"))
+        self.OpenFileButton.setText(_translate("MainWindow", "Открыть другой файл"))
 

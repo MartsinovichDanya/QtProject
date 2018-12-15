@@ -1,6 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
-from PyQt5.QtWidgets import QLabel, QErrorMessage, QHBoxLayout, QInputDialog
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog
+from PyQt5.QtWidgets import QLabel, QErrorMessage, QHBoxLayout, QInputDialog, QFileDialog
 from PyQt5.QtGui import QPixmap
 from photomagicapp import Ui_MainWindow
 import shutil
@@ -14,11 +14,15 @@ import bwimg
 
 import turns
 
+import save
+
 
 class Image:
     def __init__(self):
         self.last_op = ''
         self.name = 'img.jpg'
+        self.path = ''
+        self.backup = ''
 
 
 class Picture(QWidget):
@@ -51,6 +55,9 @@ class MainWidget(Ui_MainWindow, QMainWindow):
         self.BackButton.clicked.connect(self.back)
         self.TurnLButton.clicked.connect(self.turn_L)
         self.TurnRButton.clicked.connect(self.turn_R)
+        self.SaveChangesDialog.clicked.connect(self.save_changes)
+        self.SaveChangesDialog.rejected.connect(self.discard_changes)
+        self.OpenFileButton.clicked.connect(self.open)
 
     def show_pic(self):
         self.pic = Picture()
@@ -107,20 +114,32 @@ class MainWidget(Ui_MainWindow, QMainWindow):
         turns.TR(im)
         self.StatusLabel.show()
 
+    def save_changes(self):
+        save.save(im)
+        self.pic.close()
+        if os.path.exists('img.jpg'):
+            os.remove('img.jpg')
+
+    def discard_changes(self):
+        self.pic.close()
+        if os.path.exists('img.jpg'):
+            os.remove('img.jpg')
+
+    def open(self):
+        fname = QFileDialog.getOpenFileName(ex, 'Open file', '/home')
+        if fname[0]:
+            im.path = fname[0]
+            shutil.copy(fname[0], im.name)
+
 
 app = QApplication(sys.argv)
 ex = MainWidget()
-name, okBtnPressed = QInputDialog.getText(
-            ex, "Имя файла", "Имя файла"
-        )
-if not okBtnPressed:
+fname = QFileDialog.getOpenFileName(ex, 'Open file', '/home')
+if not fname[0]:
     sys.exit()
-if os.path.exists(name):
-    im = Image()
-    shutil.copy(name, im.name)
-    ex.show()
 else:
-    error_dialog = QErrorMessage()
-    error_dialog.showMessage('Файл не найден!!!')
-    error_dialog.setWindowTitle('Ошибка!')
+    im = Image()
+    im.path = fname[0]
+    shutil.copy(fname[0], im.name)
+    ex.show()
 sys.exit(app.exec_())
