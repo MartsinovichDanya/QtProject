@@ -12,6 +12,8 @@ import noise
 import threeDAnagliph
 import bwimg
 
+import turns
+
 
 class Image:
     def __init__(self):
@@ -26,6 +28,7 @@ class Picture(QWidget):
 
     def initUI(self):
         self.setWindowTitle('Просмотр')
+        self.setStyleSheet("background-color: rgb(85, 170, 255);")
         self.hbox = QHBoxLayout(self)
         self.pixmap = QPixmap(im.name)
         self.lbl = QLabel(self)
@@ -46,6 +49,8 @@ class MainWidget(Ui_MainWindow, QMainWindow):
         self.ThreeDButton.clicked.connect(self.mk_threeD)
         self.BWButton.clicked.connect(self.mk_bw)
         self.BackButton.clicked.connect(self.back)
+        self.TurnLButton.clicked.connect(self.turn_L)
+        self.TurnRButton.clicked.connect(self.turn_R)
 
     def show_pic(self):
         self.pic = Picture()
@@ -91,6 +96,16 @@ class MainWidget(Ui_MainWindow, QMainWindow):
             bwimg.back(im)
         elif im.last_op == 'noise':
             noise.back(im)
+
+    def turn_L(self):
+        self.StatusLabel.hide()
+        turns.TL(im)
+        self.StatusLabel.show()
+
+    def turn_R(self):
+        self.StatusLabel.hide()
+        turns.TR(im)
+        self.StatusLabel.show()
 
 
 app = QApplication(sys.argv)
